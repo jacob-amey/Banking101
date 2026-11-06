@@ -1,4 +1,5 @@
 package edu.se;
+import java.util.UUID;
 public class Account {
     private String accountNumber;
     private String type;
@@ -6,13 +7,14 @@ public class Account {
     private double balance;
 
     public Account(String type, String accountHolderName, double balance) {
+        this.accountNumber = getAccountNumber();
         this.type = type;
         this.accountHolderName = accountHolderName;
         this.balance = balance;
     }
     public String getAccountNumber() {
-        String accountNumber = "ACC" + (int)(Math.random() * 1000000);
-        return accountNumber;
+        String id = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
+        return id;
     }
     public String getType() {
         return type;
