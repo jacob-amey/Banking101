@@ -1,21 +1,33 @@
 package edu.se;
-import java.util.UUID;
+
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Account {
-    private String accountNumber;
+    private final String accountNumber;
     private String type;
     private String accountHolderName;
     private double balance;
 
     public Account(String type, String accountHolderName, double balance) {
-        this.accountNumber = getAccountNumber();
+        this.accountNumber = generate16DigitNumber();
         this.type = type;
         this.accountHolderName = accountHolderName;
         this.balance = balance;
     }
-    public String getAccountNumber() {
-        String id = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
-        return id;
+
+    private String generate16DigitNumber() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(ThreadLocalRandom.current().nextInt(1, 10));
+        for (int i = 0; i < 15; i++) {
+            sb.append(ThreadLocalRandom.current().nextInt(0, 10));
+        }
+        return sb.toString();
     }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
     public String getType() {
         return type;
     }
